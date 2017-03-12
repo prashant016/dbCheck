@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.media.MediaPlayer;
 
 public class MainActivity extends AppCompatActivity {
     DBHandler db;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             db.addProduct(s);
             printDatabase();
             t1.setText("");
+            e.setText("");
         }
         else
             e.setText("PLEASE ENTER VALUE FIRST!!!!");
@@ -45,13 +47,16 @@ public class MainActivity extends AppCompatActivity {
         t1.setText("");
     }
     public void check(View view){
+        MediaPlayer mp=MediaPlayer.create(MainActivity.this,R.raw.danger);
         String s=e.getText().toString();
         if(s!=null) {
             String s1 = "";
             if (db.exist(s))
                 s1 += "VALUE EXIST";
-            else
+            else {
                 s1 += "VALUE DOESN'T EXIST";
+                mp.start();
+            }
             t1.setText(s1);
             e.setText("");
         }
